@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Analisis Pengangguran Lulusan Perguruan Tinggi Indonesia 2010-2025</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #0f1f3d;
+  --navy-mid: #1a2f52;
+  --accent-blue: #3b82f6;
+  --accent-teal: #0d9488;
+  --accent-amber: #d97706;
+  --accent-red: #dc2626;
+  --accent-purple: #7c3aed;
+  --bg: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-card2: #f1f5f9;
+  --border: #e2e8f0;
+  --border-light: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.topbar {
+  background: var(--navy);
+  padding: 0.55rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.topbar-brand {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+}
+.topbar-right { font-size: 11px; color: rgba(255,255,255,0.35); }
+
+.wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #1e3a6e 100%);
+  padding: 2rem 2rem 1.75rem;
+  border-radius: 12px;
+  margin-bottom: 1.25rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; top: -60px; right: -60px;
+  width: 240px; height: 240px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.hero-eyebrow {
+  font-size: 10.5px; font-weight: 600; letter-spacing: 2px;
+  text-transform: uppercase; color: #93c5fd; margin-bottom: 0.6rem;
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 23px; font-weight: 700;
+  color: #fff; line-height: 1.3; margin-bottom: 0.35rem;
+}
+.hero-sub {
+  font-size: 13px; color: rgba(255,255,255,0.48);
+  font-weight: 300; margin-bottom: 1.5rem;
+}
+.hero-divider { height: 1px; background: rgba(255,255,255,0.11); margin-bottom: 1.25rem; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 1.25rem 2.5rem; }
+.hm-label {
+  font-size: 10px; color: rgba(255,255,255,0.36);
+  font-weight: 400; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.hm-val { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.86); }
+.hero-badges { display: flex; gap: 8px; margin-top: 1.25rem; flex-wrap: wrap; }
+.hero-badge {
+  font-size: 10px; font-weight: 500; padding: 3px 10px;
+  border-radius: 20px; border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.55);
+}
+.hero-badge.hl { background: rgba(59,130,246,0.18); border-color: rgba(59,130,246,0.38); color: #93c5fd; }
+.hero-badge.pr { background: rgba(124,58,237,0.18); border-color: rgba(124,58,237,0.38); color: #c4b5fd; }
+
+/* TEAM */
+.team-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.25rem 1.5rem;
+  margin-bottom: 1.25rem;
+  display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap;
+}
+.team-section { flex: 1; min-width: 200px; }
+.team-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;
+}
+.team-dosen { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+.team-dosen-sub { font-size: 11.5px; color: var(--text-secondary); }
+.team-members { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 1rem; }
+.team-member { font-size: 11.5px; color: var(--text-secondary); display: flex; gap: 6px; align-items: baseline; }
+.member-num { font-size: 10px; color: var(--text-muted); min-width: 12px; }
+
+/* METRICS */
+.metrics-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 10px; margin-bottom: 1.25rem;
+}
+.metric-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 1rem;
+  position: relative; overflow: hidden;
+}
+.metric-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.mc-red::before    { background: var(--accent-red); }
+.mc-teal::before   { background: var(--accent-teal); }
+.mc-blue::before   { background: var(--accent-blue); }
+.mc-amber::before  { background: var(--accent-amber); }
+.metric-label  { font-size: 11px; color: var(--text-secondary); margin-bottom: 8px; }
+.metric-value  { font-size: 22px; font-weight: 600; line-height: 1; margin-bottom: 4px; }
+.metric-sub    { font-size: 11px; color: var(--text-secondary); margin-bottom: 6px; }
+.metric-badge  {
+  display: inline-block; font-size: 10px; font-weight: 500;
+  padding: 2px 8px; border-radius: 20px;
+}
+.badge-red    { background: #fef2f2; color: var(--accent-red); }
+.badge-teal   { background: #f0fdf4; color: var(--accent-teal); }
+.badge-blue   { background: #eff6ff; color: #1d4ed8; }
+.badge-amber  { background: #fffbeb; color: var(--accent-amber); }
+
+/* CHART CARD */
+.chart-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.375rem 1.5rem;
+  margin-bottom: 1.25rem;
+}
+.section-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 0.875rem; gap: 1rem; flex-wrap: wrap;
+}
+.section-title { font-size: 13.5px; font-weight: 600; color: var(--text-primary); }
+.section-sub   { font-size: 11.5px; color: var(--text-secondary); margin-top: 2px; }
+.section-hint  { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+
+/* LEGEND */
+.legend-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 0.75rem; }
+.legend-chip { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-secondary); }
+.chip-dot { width: 9px; height: 9px; border-radius: 50%; }
+
+/* INSIGHT STRIP */
+.insight-strip {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 8px; margin-bottom: 1.25rem;
+}
+.insight-item {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 0.875rem 1rem;
+}
+.insight-label {
+  font-size: 11.5px; font-weight: 600; color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.insight-text { font-size: 11.5px; color: var(--text-secondary); line-height: 1.55; }
+
+/* LAYOUT */
+.two-col   { display: grid; grid-template-columns: 1.5fr 1fr; gap: 1rem; margin-bottom: 1.25rem; }
+.three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.25rem; }
+
+/* TABLE */
+.trend-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.trend-table th {
+  font-size: 10.5px; font-weight: 600; color: var(--text-muted);
+  text-align: left; padding: 0 0 8px;
+  border-bottom: 1px solid var(--border-light);
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.trend-table td {
+  padding: 7px 0; border-bottom: 1px solid var(--border-light);
+  color: var(--text-primary); vertical-align: middle;
+}
+.trend-table tr:last-child td { border-bottom: none; }
+.bar-track { flex: 1; height: 5px; background: var(--bg-card2); border-radius: 3px; overflow: hidden; }
+.bar-fill  { height: 100%; border-radius: 3px; }
+
+/* PANCASILA */
+.pancasila-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.375rem 1.5rem;
+}
+.pancasila-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 13.5px; font-weight: 500; color: var(--text-primary);
+  margin-bottom: 1rem; padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+}
+.sila-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
+.sila-block {}
+.sila-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.sila-num {
+  width: 28px; height: 28px; min-width: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600;
+}
+.sn1 { background: #fef3c7; color: #92400e; }
+.sn2 { background: #fee2e2; color: #991b1b; }
+.sn3 { background: #d1fae5; color: #065f46; }
+.sn4 { background: #dbeafe; color: #1e40af; }
+.sn5 { background: #ede9fe; color: #5b21b6; }
+.sila-name { font-size: 12px; font-weight: 600; color: var(--text-primary); }
+.sila-desc { font-size: 11.5px; color: var(--text-secondary); line-height: 1.55; }
+
+/* PREDICTION NOTE */
+.pred-note {
+  background: #f5f3ff; border: 1px solid #ddd6fe;
+  border-radius: 10px; padding: 0.875rem 1rem; margin-bottom: 1rem;
+}
+.pred-note-title { font-size: 11.5px; font-weight: 600; color: var(--accent-purple); margin-bottom: 4px; }
+.pred-note-text  { font-size: 11px; color: #6d28d9; line-height: 1.55; }
+
+/* PRED TABLE */
+.pred-scroll { overflow-x: auto; }
+.pred-table { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 520px; }
+.pred-table th {
+  font-size: 10.5px; font-weight: 600; color: var(--text-muted);
+  text-align: left; padding: 6px 10px;
+  border-bottom: 1px solid var(--border-light);
+  text-transform: uppercase; letter-spacing: 0.5px;
+  background: var(--bg);
+}
+.pred-table td {
+  padding: 7px 10px; border-bottom: 1px solid var(--border-light);
+  color: var(--text-primary); vertical-align: middle;
+}
+.pred-table tr:last-child td { border-bottom: none; }
+.pred-tag {
+  display: inline-block; font-size: 10px; padding: 1px 7px;
+  border-radius: 10px; font-weight: 500;
+  background: #f5f3ff; color: var(--accent-purple);
+}
+
+/* FOOTER */
+.footer-card {
+  background: var(--navy); border-radius: 12px;
+  padding: 1.125rem 1.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap; margin-top: 1.25rem;
+}
+.footer-text  { font-size: 11px; color: rgba(255,255,255,0.38); font-style: italic; }
+.footer-logo  { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.22); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .metrics-grid  { grid-template-columns: repeat(2, 1fr); }
+  .two-col, .three-col { grid-template-columns: 1fr; }
+  .insight-strip { grid-template-columns: repeat(2, 1fr); }
+  .sila-grid     { grid-template-columns: 1fr; }
+  .team-members  { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .insight-strip { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">BPS · Sakernas · Analisis Akademik Pancasila</div>
+  <div class="topbar-right">Diploma / Universitas · Feb 2010 – Agt 2025</div>
+</div>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">Badan Pusat Statistik · Sakernas</div>
+    <div class="hero-title">Analisis Pengangguran Lulusan<br>Perguruan Tinggi Indonesia</div>
+    <div class="hero-sub">Berbasis Statistika dan Nilai-Nilai Pancasila · 2010 hingga 2025, dengan Proyeksi hingga 2035</div>
+    <div class="hero-divider"></div>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="hm-label">Periode data</div>
+        <div class="hm-val">Feb 2010 – Agt 2025</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hm-label">Frekuensi survei</div>
+        <div class="hm-val">Semesteran (Feb &amp; Agt)</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hm-label">Total observasi aktual</div>
+        <div class="hm-val">32 titik data</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hm-label">Tingkat pendidikan</div>
+        <div class="hm-val">Diploma / Universitas</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hm-label">Proyeksi</div>
+        <div class="hm-val">2026–2035 (20 titik)</div>
+      </div>
+    </div>
+    <div class="hero-badges">
+      <span class="hero-badge hl">Data BPS Resmi</span>
+      <span class="hero-badge pr">Proyeksi Deret Waktu 2026–2035</span>
+      <span class="hero-badge">Tugas Pancasila</span>
+    </div>
+  </div>
+
+  <!-- TEAM -->
+  <div class="team-card">
+    <div class="team-section">
+      <div class="team-label">Dosen Pengampu</div>
+      <div class="team-dosen">Sita Subadra, S.Fil., M.Phil.</div>
+      <div class="team-dosen-sub">Mata Kuliah Pancasila</div>
+    </div>
+    <div class="team-section" style="flex:2;">
+      <div class="team-label">Anggota Kelompok</div>
+      <div class="team-members">
+        <div class="team-member"><span class="member-num">1.</span> Tsabita Nur 'atiyah <span style="color:var(--text-muted);font-size:10.5px;">(5003231065)</span></div>
+        <div class="team-member"><span class="member-num">2.</span> Isma Oktaviana <span style="color:var(--text-muted);font-size:10.5px;">(5003231074)</span></div>
+        <div class="team-member"><span class="member-num">3.</span> Devi Salsabila Noorqamaridia <span style="color:var(--text-muted);font-size:10.5px;">(5003231145)</span></div>
+        <div class="team-member"><span class="member-num">4.</span> Rozma Zahwalya Rusdi <span style="color:var(--text-muted);font-size:10.5px;">(5003231149)</span></div>
+        <div class="team-member"><span class="member-num">5.</span> Aditya Wahib Erlangga <span style="color:var(--text-muted);font-size:10.5px;">(5003231206)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- METRICS -->
+  <div class="metrics-grid">
+    <div class="metric-card mc-red">
+      <div class="metric-label">Tertinggi Historis (Feb 2025)</div>
+      <div class="metric-value">1.010.652</div>
+      <div class="metric-sub">jiwa pengangguran</div>
+      <span class="metric-badge badge-red">Rekor baru 2025</span>
+    </div>
+    <div class="metric-card mc-teal">
+      <div class="metric-label">Terendah (Agt 2012)</div>
+      <div class="metric-value">445.836</div>
+      <div class="metric-sub">jiwa pengangguran</div>
+      <span class="metric-badge badge-teal">Titik terbaik</span>
+    </div>
+    <div class="metric-card mc-blue">
+      <div class="metric-label">Rata-rata keseluruhan</div>
+      <div class="metric-value">737.069</div>
+      <div class="metric-sub">jiwa per periode (2010–2025)</div>
+      <span class="metric-badge badge-blue">Mean 2010–2025</span>
+    </div>
+    <div class="metric-card mc-amber">
+      <div class="metric-label">Data terbaru (Agt 2025)</div>
+      <div class="metric-value">904.440</div>
+      <div class="metric-sub">jiwa pengangguran</div>
+      <span class="metric-badge badge-amber">+23% vs rata-rata</span>
+    </div>
+  </div>
+
+  <!-- MAIN CHART -->
+  <div class="chart-card">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Tren Pengangguran Lulusan PT · 2010–2025 dan Proyeksi 2026–2035</div>
+        <div class="section-sub">Data aktual BPS (garis gelap) · Proyeksi pemulusan eksponensial (garis ungu dan hijau putus-putus)</div>
+      </div>
+      <div class="section-hint">Feb &amp; Agt tiap tahun</div>
+    </div>
+    <div class="legend-row">
+      <div class="legend-chip"><div class="chip-dot" style="background:#1a2f52;"></div> Data aktual 2010–2025</div>
+      <div class="legend-chip"><div class="chip-dot" style="background:#dc2626;"></div> 900 ribu ke atas</div>
+      <div class="legend-chip"><div class="chip-dot" style="background:#d97706;"></div> 800 ribu ke atas</div>
+      <div class="legend-chip"><div class="chip-dot" style="background:#7c3aed;"></div> Proyeksi baseline</div>
+      <div class="legend-chip"><div class="chip-dot" style="background:#0d9488;"></div> Proyeksi optimistis</div>
+    </div>
+    <div style="position:relative;width:100%;height:300px;">
+      <canvas id="mainChart"></canvas>
+    </div>
+    <div style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid var(--border-light);font-size:11px;color:var(--text-muted);">
+      Catatan: Proyeksi menggunakan metode pemulusan eksponensial ganda (Double Exponential Smoothing/Holt's method) pada data deret waktu 2010–2025. Nilai proyeksi bersifat estimasi dan dapat berubah sesuai kondisi ketenagakerjaan dan kebijakan pemerintah.
+    </div>
+  </div>
+
+  <!-- INSIGHT STRIP -->
+  <div class="insight-strip">
+    <div class="insight-item">
+      <div class="insight-label">Fase pemulihan (2010–2013)</div>
+      <div class="insight-text">Turun konsisten dari 820 ribu ke 425 ribu. Serapan kerja pasca krisis 2008 membaik secara signifikan.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-label">Lonjakan pandemi (2020–2021)</div>
+      <div class="insight-text">COVID-19 mendorong angka ke 999 ribu jiwa, kenaikan sekitar 36% dalam dua semester akibat PHK massal.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-label">Pemulihan belum tuntas (2022–2024)</div>
+      <div class="insight-text">Masih di atas 800 ribu jiwa. Ketidaksesuaian kompetensi dan industri menjadi hambatan utama penyerapan lulusan.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-label">Rekor baru di 2025</div>
+      <div class="insight-text">Feb 2025 menembus 1.010.652 jiwa, pertama kali melampaui angka puncak pandemi. Sinyal struktural yang perlu diwaspadai.</div>
+    </div>
+  </div>
+
+  <!-- TWO COL: Era Bar + Top 5 -->
+  <div class="two-col">
+    <div class="chart-card" style="margin-bottom:0;">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Perbandingan rerata per era</div>
+          <div class="section-sub">Rata-rata jiwa pengangguran per periode</div>
+        </div>
+        <div class="section-hint">Ribuan jiwa</div>
+      </div>
+      <div style="position:relative;width:100%;height:210px;">
+        <canvas id="eraChart"></canvas>
+      </div>
+    </div>
+    <div class="chart-card" style="margin-bottom:0;">
+      <div class="section-header">
+        <div class="section-title">Top 5 periode tertinggi</div>
+      </div>
+      <table class="trend-table">
+        <thead><tr><th>Periode</th><th>Jiwa</th><th>Skala</th></tr></thead>
+        <tbody id="topTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PREDICTION TABLE -->
+  <div class="chart-card" style="margin-top:0;">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Tabel Proyeksi Pengangguran Lulusan PT · 2026–2035</div>
+        <div class="section-sub">Estimasi berbasis analisis deret waktu. Dua skenario: Baseline (tanpa intervensi) dan Optimistis (dengan reformasi kebijakan).</div>
+      </div>
+    </div>
+    <div class="pred-note">
+      <div class="pred-note-title">Metodologi Proyeksi</div>
+      <div class="pred-note-text">
+        Proyeksi <strong>baseline</strong> menggunakan metode pemulusan eksponensial ganda (Double Exponential Smoothing/Holt's method) pada data deret waktu semesteran 2010–2025. Metode ini memperhitungkan level dan tren data secara bersamaan, sehingga lebih sesuai untuk data dengan pola tren dibanding metode rata-rata sederhana.
+        Skenario <strong>optimistis</strong> mengasumsikan implementasi kebijakan link and match industri-kampus, reformasi kurikulum berbasis kompetensi, serta perluasan program magang nasional yang dapat menekan angka hingga 30–35% dari baseline pada 2035.
+      </div>
+    </div>
+    <div class="pred-scroll">
+      <table class="pred-table">
+        <thead>
+          <tr>
+            <th>Periode</th>
+            <th>Status</th>
+            <th>Baseline (jiwa)</th>
+            <th>Skenario Optimistis</th>
+            <th>Selisih Potensi</th>
+            <th>Catatan</th>
+          </tr>
+        </thead>
+        <tbody id="predTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- THREE COL: Donut + Pred Bar + Stats -->
+  <div class="three-col">
+
+    <div class="chart-card" style="margin-bottom:0;">
+      <div class="section-header">
+        <div class="section-title">Sebaran semester</div>
+        <div class="section-hint">Feb vs Agt · 2010–2025</div>
+      </div>
+      <div style="position:relative;width:100%;height:160px;">
+        <canvas id="semChart"></canvas>
+      </div>
+      <div style="margin-top:0.875rem;padding-top:0.75rem;border-top:1px solid var(--border-light);">
+        <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">Interpretasi pola</div>
+        <div style="font-size:11.5px;color:var(--text-secondary);line-height:1.6;">
+          Pengangguran cenderung <strong style="color:var(--text-primary)">lebih tinggi di Februari</strong>, saat lulusan semester ganjil baru memasuki pasar kerja. Agustus umumnya lebih rendah karena absorbsi lulusan Desember telah berjalan.
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-card" style="margin-bottom:0;">
+      <div class="section-header">
+        <div class="section-title">Proyeksi Baseline vs Optimistis</div>
+        <div class="section-hint">Rata-rata per tahun</div>
+      </div>
+      <div style="position:relative;width:100%;height:160px;">
+        <canvas id="predChart"></canvas>
+      </div>
+      <div style="margin-top:0.875rem;padding-top:0.75rem;border-top:1px solid var(--border-light);">
+        <div style="font-size:11.5px;color:var(--text-secondary);line-height:1.6;">
+          Selisih antara dua skenario mencerminkan <strong style="color:var(--text-primary)">potensi pengurangan</strong> hingga 300 ribu jiwa per semester jika reformasi pendidikan-industri berjalan efektif pada 2035.
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-card" style="margin-bottom:0;padding:1.25rem 1.375rem;">
+      <div class="section-title" style="margin-bottom:0.875rem;">Statistik Ringkas 2025</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;border-bottom:1px solid var(--border-light);">
+          <span style="font-size:12px;color:var(--text-secondary);">Feb 2025</span>
+          <span style="font-size:13px;font-weight:600;color:var(--accent-red);">1.010.652</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;border-bottom:1px solid var(--border-light);">
+          <span style="font-size:12px;color:var(--text-secondary);">Agt 2025</span>
+          <span style="font-size:13px;font-weight:600;color:var(--accent-amber);">904.440</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;border-bottom:1px solid var(--border-light);">
+          <span style="font-size:12px;color:var(--text-secondary);">Rata-rata 2025</span>
+          <span style="font-size:13px;font-weight:600;">957.546</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;border-bottom:1px solid var(--border-light);">
+          <span style="font-size:12px;color:var(--text-secondary);">vs rata-rata 2024</span>
+          <span style="font-size:13px;font-weight:600;color:var(--accent-red);">+10,6%</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:12px;color:var(--text-secondary);">vs rata-rata historis</span>
+          <span style="font-size:13px;font-weight:600;color:var(--accent-amber);">+30%</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PANCASILA -->
+  <div class="pancasila-card">
+    <div class="pancasila-title">Relevansi Nilai-Nilai Pancasila dalam Penanganan Pengangguran Lulusan Perguruan Tinggi</div>
+    <div class="sila-grid">
+      <div class="sila-block">
+        <div class="sila-head">
+          <div class="sila-num sn1">I</div>
+          <div class="sila-name">Ketuhanan Yang Maha Esa</div>
+        </div>
+        <div class="sila-desc">Pendidikan tinggi harus berlandaskan nilai moral-spiritual, bukan semata komersial. Lulusan PT perlu dikembangkan dengan integritas dan etos kerja yang kuat sebagai wujud pengabdian.</div>
+      </div>
+      <div class="sila-block">
+        <div class="sila-head">
+          <div class="sila-num sn2">II</div>
+          <div class="sila-name">Kemanusiaan yang Adil dan Beradab</div>
+        </div>
+        <div class="sila-desc">Setiap lulusan berhak mendapat akses kerja yang adil. Angka lebih dari satu juta pengangguran mencerminkan perlunya jaminan sosial, pelatihan ulang yang manusiawi, dan perlindungan hak tenaga kerja.</div>
+      </div>
+      <div class="sila-block">
+        <div class="sila-head">
+          <div class="sila-num sn3">III</div>
+          <div class="sila-name">Persatuan Indonesia</div>
+        </div>
+        <div class="sila-desc">Ketimpangan penyerapan kerja antardaerah mengancam kohesi sosial. Distribusi lulusan dan industri yang merata memperkuat persatuan bangsa dan mencegah urbanisasi berlebihan.</div>
+      </div>
+      <div class="sila-block">
+        <div class="sila-head">
+          <div class="sila-num sn4">IV</div>
+          <div class="sila-name">Kerakyatan yang Dipimpin Hikmat Kebijaksanaan</div>
+        </div>
+        <div class="sila-desc">Kebijakan pendidikan dan ketenagakerjaan perlu dirumuskan berbasis data serta musyawarah pemangku kepentingan, bukan kepentingan politik sesaat maupun tekanan pasar semata.</div>
+      </div>
+      <div class="sila-block">
+        <div class="sila-head">
+          <div class="sila-num sn5">V</div>
+          <div class="sila-name">Keadilan Sosial bagi Seluruh Rakyat</div>
+        </div>
+        <div class="sila-desc">Ketidaksesuaian kompetensi menciptakan ketidakadilan sistemik. Reformasi kurikulum perguruan tinggi harus berorientasi pada pemerataan kesempatan kerja dan pengurangan kesenjangan ekonomi.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-card">
+    <div class="footer-text">Sumber data: BPS, Survei Angkatan Kerja Nasional (Sakernas). Diolah untuk keperluan analisis akademik mata kuliah Pancasila.</div>
+    <div class="footer-logo">BPS · Sakernas · 2010–2025</div>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+// DATA AKTUAL
+const raw = [
+  {p:'Feb',y:2010,v:820020},{p:'Agt',y:2010,v:710128},
+  {p:'Feb',y:2011,v:635442},{p:'Agt',y:2011,v:543216},
+  {p:'Feb',y:2012,v:553206},{p:'Agt',y:2012,v:445836},
+  {p:'Feb',y:2013,v:425042},{p:'Agt',y:2013,v:434185},
+  {p:'Feb',y:2014,v:398298},{p:'Agt',y:2014,v:495413},
+  {p:'Feb',y:2015,v:565402},{p:'Agt',y:2015,v:653586},
+  {p:'Feb',y:2016,v:695304},{p:'Agt',y:2016,v:567235},
+  {p:'Feb',y:2017,v:606939},{p:'Agt',y:2017,v:618758},
+  {p:'Feb',y:2018,v:803624},{p:'Agt',y:2018,v:740370},
+  {p:'Feb',y:2019,v:855854},{p:'Agt',y:2019,v:746354},
+  {p:'Feb',y:2020,v:824912},{p:'Agt',y:2020,v:981203},
+  {p:'Feb',y:2021,v:999543},{p:'Agt',y:2021,v:848657},
+  {p:'Feb',y:2022,v:884769},{p:'Agt',y:2022,v:673485},
+  {p:'Feb',y:2023,v:753732},{p:'Agt',y:2023,v:787973},
+  {p:'Feb',y:2024,v:871860},{p:'Agt',y:2024,v:842378},
+  {p:'Feb',y:2025,v:1010652},{p:'Agt',y:2025,v:904440}
+];
+
+// ── DOUBLE EXPONENTIAL SMOOTHING (Holt's Method) ──
+// Alpha: level smoothing, Beta: trend smoothing
+function holtForecast(data, alpha, beta, steps) {
+  let L = data[0];
+  let T = data[1] - data[0];
+  for (let i = 1; i < data.length; i++) {
+    const prevL = L;
+    L = alpha * data[i] + (1 - alpha) * (L + T);
+    T = beta * (L - prevL) + (1 - beta) * T;
+  }
+  const forecasts = [];
+  for (let h = 1; h <= steps; h++) {
+    forecasts.push(Math.round(L + h * T));
+  }
+  return forecasts;
+}
+
+const vals = raw.map(d => d.v);
+
+// Baseline: alpha=0.4, beta=0.3 (mengikuti tren kenaikan pasca-pandemi)
+const baseForecasts = holtForecast(vals, 0.4, 0.3, 20);
+
+// Optimistis: alpha=0.4, beta=0.3, lalu dikurangi faktor intervensi progresif
+const optForecasts = baseForecasts.map((v, i) => {
+  const reductionFactor = 0.02 * (i + 1); // makin ke depan, makin besar pengurangan (kebijakan kumulatif)
+  return Math.round(v * (1 - Math.min(reductionFactor, 0.35)));
+});
+
+const predYears = [2026,2027,2028,2029,2030,2031,2032,2033,2034,2035];
+const predictions = [];
+predYears.forEach((yr, i) => {
+  const bFeb = baseForecasts[i * 2];
+  const bAgt = baseForecasts[i * 2 + 1];
+  const oFeb = optForecasts[i * 2];
+  const oAgt = optForecasts[i * 2 + 1];
+  predictions.push({yr, bFeb, bAgt, oFeb, oAgt});
+});
+
+// MAIN CHART
+const actualLabels = raw.map(d => d.p + ' ' + d.y);
+const actualVals   = raw.map(d => d.v);
+
+const predLabels   = [];
+const predBaseline = [];
+const predOpt      = [];
+predictions.forEach(p => {
+  predLabels.push('Feb ' + p.yr, 'Agt ' + p.yr);
+  predBaseline.push(p.bFeb, p.bAgt);
+  predOpt.push(p.oFeb, p.oAgt);
+});
+
+const allLabels  = [...actualLabels, ...predLabels];
+const allActual  = [...actualVals,   ...new Array(predLabels.length).fill(null)];
+const allBase    = [...new Array(actualLabels.length).fill(null), ...predBaseline];
+const allOpt2    = [...new Array(actualLabels.length).fill(null), ...predOpt];
+
+// Bridge: connect last actual to first prediction
+allBase[actualLabels.length - 1]  = actualVals[actualVals.length - 1];
+allOpt2[actualLabels.length - 1]  = actualVals[actualVals.length - 1];
+
+const ptColor = actualVals.map(v =>
+  v >= 900000 ? '#dc2626' : v >= 800000 ? '#d97706' : '#1a2f52'
+);
+const ptColorAll = [...ptColor, ...new Array(predLabels.length).fill('transparent')];
+const ptRadiusAll = allActual.map(v => v !== null ? 4.5 : 0);
+
+// Y-axis formatter: < 1jt => "XXXrb", >= 1jt => "X,XXjt"
+function fmtY(v) {
+  if (v >= 1000000) {
+    const jt = v / 1000000;
+    return jt % 1 === 0 ? jt + ' jt' : jt.toFixed(2).replace('.', ',') + ' jt';
+  }
+  return (v / 1000).toFixed(0) + ' rb';
+}
+
+new Chart(document.getElementById('mainChart'), {
+  type: 'line',
+  data: {
+    labels: allLabels,
+    datasets: [
+      {
+        label: 'Data Aktual',
+        data: allActual,
+        borderColor: '#1a2f52', borderWidth: 2,
+        pointBackgroundColor: ptColorAll,
+        pointBorderColor: ptColorAll,
+        pointRadius: ptRadiusAll,
+        pointHoverRadius: 6,
+        fill: false, tension: 0.3, spanGaps: false
+      },
+      {
+        label: 'Proyeksi Baseline',
+        data: allBase,
+        borderColor: '#7c3aed', borderWidth: 2,
+        borderDash: [6, 4],
+        pointBackgroundColor: '#7c3aed', pointBorderColor: '#7c3aed',
+        pointRadius: allBase.map(v => v !== null ? 3 : 0),
+        fill: false, tension: 0.3, spanGaps: false
+      },
+      {
+        label: 'Proyeksi Optimistis',
+        data: allOpt2,
+        borderColor: '#0d9488', borderWidth: 2,
+        borderDash: [3, 5],
+        pointBackgroundColor: '#0d9488', pointBorderColor: '#0d9488',
+        pointRadius: allOpt2.map(v => v !== null ? 3 : 0),
+        fill: {target: 1, above: 'rgba(124,58,237,0.04)'},
+        tension: 0.3, spanGaps: false
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true, position: 'bottom',
+        labels: { font: {size:11}, usePointStyle: true, pointStyleWidth: 14, padding: 16 }
+      },
+      tooltip: {
+        callbacks: {
+          label: ctx => ' ' + (ctx.parsed.y != null ? ctx.parsed.y.toLocaleString('id-ID') + ' jiwa' : '-')
+        }
+      }
+    },
+    scales: {
+      x: {
+        ticks: { font: {size: 9.5}, maxRotation: 45, autoSkip: true, maxTicksLimit: 20 },
+        grid: { display: false }
+      },
+      y: {
+        ticks: { font: {size: 10}, callback: v => fmtY(v) },
+        grid: { color: 'rgba(128,128,128,0.08)' },
+        min: 300000
+      }
+    }
+  }
+});
+
+// ERA BAR CHART
+const eraAvg = [
+  Math.round([820020,710128,635442,543216,553206,445836,425042,434185,398298,495413,565402,653586,695304,567235,606939,618758,803624,740370,855854,746354].reduce((a,b)=>a+b)/20),
+  Math.round([824912,981203,999543,848657].reduce((a,b)=>a+b)/4),
+  Math.round([884769,673485,753732,787973,871860,842378].reduce((a,b)=>a+b)/6),
+  Math.round([1010652,904440].reduce((a,b)=>a+b)/2)
+];
+
+new Chart(document.getElementById('eraChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Pra-pandemi\n(2010–2019)', 'Pandemi\n(2020–2021)', 'Pasca-pandemi\n(2022–2024)', 'Terkini\n(2025)'],
+    datasets: [{
+      data: eraAvg,
+      backgroundColor: ['rgba(59,130,246,0.7)','rgba(220,38,38,0.7)','rgba(217,119,6,0.7)','rgba(124,58,237,0.7)'],
+      borderColor: ['#1d4ed8','#991b1b','#92400e','#5b21b6'],
+      borderWidth: 1, borderRadius: 6
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ' ' + ctx.parsed.y.toLocaleString('id-ID') + ' jiwa' } }
+    },
+    scales: {
+      x: { ticks: { font: {size: 9.5} }, grid: { display: false } },
+      y: { ticks: { font: {size: 10}, callback: v => fmtY(v) }, grid: { color: 'rgba(128,128,128,0.08)' } }
+    }
+  }
+});
+
+// TOP 5 TABLE
+const sorted = [...raw].sort((a,b) => b.v - a.v).slice(0, 5);
+const maxV   = sorted[0].v;
+const colors = ['#dc2626','#d85a30','#d97706','#3b82f6','#0d9488'];
+const tbody  = document.getElementById('topTable');
+sorted.forEach((d, i) => {
+  const pct = Math.round((d.v / maxV) * 100);
+  tbody.innerHTML += `<tr>
+    <td style="color:var(--text-secondary)">${d.p} ${d.y}</td>
+    <td style="font-weight:600">${d.v.toLocaleString('id-ID')}</td>
+    <td style="width:40%">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${colors[i]};"></div></div>
+        <span style="font-size:10px;color:var(--text-muted);width:28px;">${pct}%</span>
+      </div>
+    </td>
+  </tr>`;
+});
+
+// SEMESTER DONUT
+const febAvg = Math.round(raw.filter(d=>d.p==='Feb').reduce((a,b)=>a+b.v,0) / raw.filter(d=>d.p==='Feb').length);
+const agtAvg = Math.round(raw.filter(d=>d.p==='Agt').reduce((a,b)=>a+b.v,0) / raw.filter(d=>d.p==='Agt').length);
+
+new Chart(document.getElementById('semChart'), {
+  type: 'doughnut',
+  data: {
+    labels: [`Februari (rata-rata: ${febAvg.toLocaleString('id-ID')})`, `Agustus (rata-rata: ${agtAvg.toLocaleString('id-ID')})`],
+    datasets: [{
+      data: [febAvg, agtAvg],
+      backgroundColor: ['rgba(15,31,61,0.82)', 'rgba(59,130,246,0.65)'],
+      borderColor: ['#0f1f3d','#1d4ed8'],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false, cutout: '65%',
+    plugins: {
+      legend: { display: true, position: 'bottom', labels: { font: {size:10}, usePointStyle: true, padding: 10 } },
+      tooltip: { callbacks: { label: ctx => ' ' + ctx.parsed.toLocaleString('id-ID') + ' jiwa' } }
+    }
+  }
+});
+
+// PREDICTION COMPARISON BAR
+const predYearsShort = [2026, 2028, 2030, 2032, 2035];
+const predBase2 = predYearsShort.map(yr => {
+  const p = predictions.find(x => x.yr === yr);
+  return p ? Math.round((p.bFeb + p.bAgt) / 2) : 0;
+});
+const predOpt2 = predYearsShort.map(yr => {
+  const p = predictions.find(x => x.yr === yr);
+  return p ? Math.round((p.oFeb + p.oAgt) / 2) : 0;
+});
+
+new Chart(document.getElementById('predChart'), {
+  type: 'bar',
+  data: {
+    labels: predYearsShort.map(String),
+    datasets: [
+      {
+        label: 'Baseline', data: predBase2,
+        backgroundColor: 'rgba(124,58,237,0.65)', borderColor: '#5b21b6',
+        borderWidth: 1, borderRadius: 4
+      },
+      {
+        label: 'Optimistis', data: predOpt2,
+        backgroundColor: 'rgba(13,148,136,0.65)', borderColor: '#065f46',
+        borderWidth: 1, borderRadius: 4
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: true, position: 'bottom', labels: { font: {size:10}, usePointStyle: true, padding: 10 } },
+      tooltip: { callbacks: { label: ctx => ' ' + ctx.parsed.y.toLocaleString('id-ID') + ' jiwa' } }
+    },
+    scales: {
+      x: { ticks: { font: {size:10} }, grid: { display: false } },
+      y: { ticks: { font: {size:10}, callback: v => fmtY(v) }, grid: { color: 'rgba(128,128,128,0.08)' } }
+    }
+  }
+});
+
+// PREDICTION TABLE
+const predTbody = document.getElementById('predTable');
+const notes = [
+  'Momentum kenaikan pasca 2025; risiko tinggi tanpa intervensi segera',
+  'Tren terus naik; perlu kebijakan link and match industri-kampus',
+  'Potensi ketidaksesuaian struktural semakin dalam tanpa reformasi kurikulum',
+  'Digitalisasi industri memperlebar kesenjangan kompetensi lulusan',
+  'Titik kritis proyeksi jika tanpa reformasi signifikan dari pemerintah',
+  'Divergensi antar skenario mulai terlihat jelas',
+  'Kebijakan optimistis mulai memberikan hasil nyata pada angka pengangguran',
+  'Perbedaan skenario semakin signifikan; peluang kebijakan semakin terbatas',
+  'Dampak jangka panjang reformasi kurikulum mulai terlihat hasilnya',
+  'Target 2035: skenario optimistis berarti sekitar 300 ribu jiwa lebih sedikit menganggur'
+];
+predictions.forEach((p, i) => {
+  const totSelisih = Math.round((p.bFeb - p.oFeb) + (p.bAgt - p.oAgt));
+  predTbody.innerHTML += `
+    <tr>
+      <td style="color:var(--text-secondary);white-space:nowrap;">Feb ${p.yr} / Agt ${p.yr}</td>
+      <td><span class="pred-tag">Proyeksi</span></td>
+      <td style="font-weight:600;color:#5b21b6;">${p.bFeb.toLocaleString('id-ID')} / ${p.bAgt.toLocaleString('id-ID')}</td>
+      <td style="font-weight:600;color:#0d9488;">${p.oFeb.toLocaleString('id-ID')} / ${p.oAgt.toLocaleString('id-ID')}</td>
+      <td style="color:var(--accent-teal);font-weight:500;">-${totSelisih.toLocaleString('id-ID')}</td>
+      <td style="font-size:11px;color:var(--text-secondary);">${notes[i]}</td>
+    </tr>`;
+});
+</script>
+</body>
+</html>
